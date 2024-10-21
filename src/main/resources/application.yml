@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: skoda-demo
+  mvc:
+    servlet:
+      path: /api/v1
+  jackson:
+    default-property-inclusion: non-null
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  datasource:
+    password: Test123!
+    url: jdbc:postgresql://localhost:5432/skoda_demo?createDatabaseIfNotExist=true
+    username: skoda-demo
