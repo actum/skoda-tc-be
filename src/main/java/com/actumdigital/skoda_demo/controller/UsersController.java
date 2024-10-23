@@ -1,28 +1,40 @@
 package com.actumdigital.skoda_demo.controller;
 
+import com.actumdigital.skoda_demo.dto.AddressDto;
 import com.actumdigital.skoda_demo.dto.UserDto;
+import com.actumdigital.skoda_demo.facade.UserFacade;
 import com.actumdigital.skoda_demo.model.User;
 import com.actumdigital.skoda_demo.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(UsersController.BASE_URL)
 public class UsersController {
 
-    public static final String BASE_URL = "/users";
+    public static final String BASE_URL = "/users/current";
 
-    private final UserService userService;
+    UserFacade userFacade;
 
-    public UsersController(UserService userService) {
-        this.userService = userService;
+    public UsersController(UserFacade userFacade) {
+        this.userFacade = userFacade;
     }
 
-    @GetMapping
+    @GetMapping()
     public UserDto getCurrentUser() {
-        return userService.getCurrentUser();
+        return userFacade.getCurrentUser();
     }
 
+    @PutMapping("/addresses/{addressId}")
+    public UserDto getCurrentUser(@PathVariable("addressId") UUID addressId, @RequestBody AddressDto addressDto) {
+        return userFacade.updateUserAddress(addressId, addressDto);
+
+    }
 }

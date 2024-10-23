@@ -1,12 +1,17 @@
 package com.actumdigital.skoda_demo.model;
 
+import com.actumdigital.skoda_demo.enums.ProductType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -22,7 +27,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String code;
 
     @Column
@@ -37,16 +42,28 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<PurchasedLicense> purchasedLicenses;
 
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     public Product() {
     }
 
-    public Product(UUID id,String code, String name, Double price, String description, Set<PurchasedLicense> purchasedLicenses) {
+    public Product(UUID id) {
+        this.id = id;
+    }
+
+    public Product(UUID id, String code, String name, Double price, String description, ProductType productType, Category category) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.price = price;
         this.description = description;
-        this.purchasedLicenses = purchasedLicenses;
+        this.productType = productType;
+        this.category = category;
     }
 
     public UUID getId() {
@@ -57,12 +74,20 @@ public class Product {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
 
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getDescription() {
@@ -73,11 +98,19 @@ public class Product {
         return purchasedLicenses;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

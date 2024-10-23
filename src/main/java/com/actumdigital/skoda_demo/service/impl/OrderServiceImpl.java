@@ -2,11 +2,11 @@ package com.actumdigital.skoda_demo.service.impl;
 
 import com.actumdigital.skoda_demo.dto.OrderDto;
 import com.actumdigital.skoda_demo.dto.ProductDto;
-import com.actumdigital.skoda_demo.dto.UserDto;
 import com.actumdigital.skoda_demo.mapper.OrderMapper;
 import com.actumdigital.skoda_demo.mapper.ProductMapper;
 import com.actumdigital.skoda_demo.model.Order;
 import com.actumdigital.skoda_demo.model.OrderItem;
+import com.actumdigital.skoda_demo.model.Product;
 import com.actumdigital.skoda_demo.model.User;
 import com.actumdigital.skoda_demo.repository.OrderRepository;
 import com.actumdigital.skoda_demo.service.OrderService;
@@ -39,11 +39,11 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = new Order();
         List<OrderItem> orderItems = productList.stream()
-                .map(p -> new OrderItem(order, productMapper.toModel(p)))
+                .map(p -> new OrderItem(order, new Product(p.getId())))
                 .toList();
 
-        order.setItems(orderItems);
-        order.setTotalPrice(order.getItems().stream().mapToDouble(i -> i.getProduct().getPrice()).sum());
+        order.setItemList(orderItems);
+        order.setTotalPrice(order.getItemList().stream().mapToDouble(i -> i.getProduct().getPrice()).sum());
         order.setUser(user);
 
         return orderMapper.toDto(orderRepository.save(order));

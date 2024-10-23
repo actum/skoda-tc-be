@@ -3,7 +3,6 @@ package com.actumdigital.skoda_demo.service.impl;
 import com.actumdigital.skoda_demo.dto.CartDto;
 import com.actumdigital.skoda_demo.dto.ProductDto;
 import com.actumdigital.skoda_demo.exception.CartException;
-import com.actumdigital.skoda_demo.mapper.CartItemMapper;
 import com.actumdigital.skoda_demo.mapper.CartMapper;
 import com.actumdigital.skoda_demo.mapper.ProductMapper;
 import com.actumdigital.skoda_demo.model.Cart;
@@ -45,7 +44,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findByUser(user)
                 .orElseThrow(() -> CartException.NOT_FOUND);
 
-        List<CartItem> items = cart.getItems();
+        List<CartItem> items = cart.getCartItems();
 
         if (!CollectionUtils.isEmpty(items)) {
             items.removeIf(item -> item.getProduct().getCode().equals(productDto.getCode()));
@@ -78,7 +77,7 @@ public class CartServiceImpl implements CartService {
     }
 
     private Cart saveCart(Cart cart) {
-        cart.setTotalPrice(cart.getItems().stream()
+        cart.setTotalPrice(cart.getCartItems().stream()
                 .mapToDouble(i -> i.getProduct().getPrice())
                 .sum());
         return cartRepository.save(cart);

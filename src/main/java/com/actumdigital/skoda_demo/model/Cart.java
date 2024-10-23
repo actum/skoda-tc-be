@@ -1,6 +1,5 @@
 package com.actumdigital.skoda_demo.model;
 
-import com.actumdigital.skoda_demo.dto.CartItemDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,7 +33,7 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart",  cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<CartItem> items = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public Cart() {
     }
@@ -64,22 +63,22 @@ public class Cart {
         this.user = user;
     }
 
-    public List<CartItem> getItems() {
-        return items;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setItems(List<CartItem> items) {
-        this.items = items;
+    public void setCartItems(List<CartItem> items) {
+        this.cartItems = items;
     }
 
     public void addItem(CartItem item) {
-        Optional<CartItem> existingItem = this.items.stream()
+        Optional<CartItem> existingItem = this.cartItems.stream()
                 .filter(i -> i.getProduct().getCode().equals(item.getProduct().getCode()))
                 .findFirst();
 
         if (existingItem.isEmpty()) {
             CartItem newItem = new CartItem(this, item.getProduct());
-            this.items.add(newItem);
+            this.cartItems.add(newItem);
         }
     }
 }

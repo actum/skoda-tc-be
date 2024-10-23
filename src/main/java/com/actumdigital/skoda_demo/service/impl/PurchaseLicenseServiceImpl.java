@@ -5,11 +5,13 @@ import com.actumdigital.skoda_demo.dto.PurchasedLicenseDto;
 import com.actumdigital.skoda_demo.exception.PurchasedLicenseException;
 import com.actumdigital.skoda_demo.mapper.ProductMapper;
 import com.actumdigital.skoda_demo.mapper.PurchasedLicenseMapper;
+import com.actumdigital.skoda_demo.model.Product;
 import com.actumdigital.skoda_demo.model.PurchasedLicense;
 import com.actumdigital.skoda_demo.model.PurchasedLicenseKey;
 import com.actumdigital.skoda_demo.model.User;
 import com.actumdigital.skoda_demo.repository.PurchasedLicenseRepository;
 import com.actumdigital.skoda_demo.service.PurchaseLicenseService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,9 +37,9 @@ public class PurchaseLicenseServiceImpl implements PurchaseLicenseService {
         if(user == null || productDto == null) {
             throw new IllegalArgumentException("User or productDto cannot be null");
         }
-        PurchasedLicense purchasedLicense = purchasedLicenseRepository.findByUserAndProduct(user, productMapper.toModel(productDto))
-                .orElseThrow(() -> new PurchasedLicenseException(String.format("License for user {} and product {} not found", user.getId().toString(), productDto.getCode())));
-        return purchasedLicenseMapper.toDto(purchasedLicense);
+        return purchasedLicenseRepository.findByUserAndProduct(user, new Product(productDto.getId()))
+                .map(purchasedLicenseMapper::toDto)
+                .orElse(null);
     }
 
 
@@ -56,9 +58,8 @@ public class PurchaseLicenseServiceImpl implements PurchaseLicenseService {
         PurchasedLicense purchasedLicense = new PurchasedLicense();
         purchasedLicense.setId(new PurchasedLicenseKey(user.getId(), productDto.getId()));
         purchasedLicense.setUser(user);
-        purchasedLicense.setProduct(productMapper.toModel(productDto));
+        purchasedLicense.setProduct(new Product(productDto.getId()));
         purchasedLicense.setEndDate(LocalDate.now().plusYears(1));
-
 
         return purchasedLicenseMapper.toDto(purchasedLicenseRepository.save(purchasedLicense));
     }

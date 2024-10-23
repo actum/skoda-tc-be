@@ -2,38 +2,26 @@ package com.actumdigital.skoda_demo.mapper;
 
 import com.actumdigital.skoda_demo.dto.ProductDto;
 import com.actumdigital.skoda_demo.model.Product;
-import org.springframework.stereotype.Component;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-@Component
-public class ProductMapper {
+import java.util.List;
 
-    public ProductDto toDto(Product product) {
-        if (product == null) {
-            throw new IllegalArgumentException("Product cannot be null");
-        }
+@Mapper(componentModel = "spring")
+public interface ProductMapper {
 
-        return new ProductDto(
-                product.getId(),
-                product.getCode(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                null
-        );
-    }
+    @Named("toDto")
+    @Mapping(source = "category.name", target = "categoryName")
+    ProductDto toDto(Product product);
 
-    public Product toModel(ProductDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("productDto cannot be null");
-        }
+    @Named("toModel")
+    Product toModel(ProductDto productDto);
 
-        return new Product(
-                dto.getId(),
-                dto.getCode(),
-                dto.getName(),
-                dto.getPrice(),
-                dto.getDescription(),
-                null
-        );
-    }
+    @IterableMapping(qualifiedByName = "toModel")
+    List<Product> toModel(List<ProductDto> productDtoList);
+
+    @IterableMapping(qualifiedByName = "toDto")
+    List<ProductDto> toDto(List<Product> productList);
 }

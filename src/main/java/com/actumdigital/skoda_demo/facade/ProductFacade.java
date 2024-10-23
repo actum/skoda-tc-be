@@ -44,4 +44,17 @@ public class ProductFacade {
         product.setPurchasedLicense(purchaseLicenseService.getPurchasedLicense(user, product));
         return product;
     }
+
+    public List<ProductDto> getInactiveProducts(User user) {
+        List<ProductDto> allProducts = productService.getAllProducts();
+        Set<PurchasedLicenseDto> purchasedLicences = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+
+        Set<String> purchasedProductCodes = purchasedLicences.stream()
+                .map(PurchasedLicenseDto::productCode)
+                .collect(Collectors.toSet());
+
+        return allProducts.stream()
+                .filter(product -> !purchasedProductCodes.contains(product.getCode()))
+                .toList();
+    }
 }

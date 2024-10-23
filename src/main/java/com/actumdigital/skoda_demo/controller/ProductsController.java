@@ -32,4 +32,9 @@ public class ProductsController {
     public ProductDto getProduct(@PathVariable String code, @AuthenticationPrincipal User user) {
         return productFacade.getUserProduct(code, user);
     }
+
+    @GetMapping("/inactive")
+    public List<ProductDto> getInactive(@AuthenticationPrincipal User user) {
+        return productFacade.getInactiveProducts(user);
+    }
 }

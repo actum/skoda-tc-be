@@ -2,18 +2,14 @@ package com.actumdigital.skoda_demo.mapper;
 
 import com.actumdigital.skoda_demo.dto.CartItemDto;
 import com.actumdigital.skoda_demo.model.CartItem;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class CartItemMapper {
+@Mapper(componentModel = "spring")
+public interface CartItemMapper {
 
-    public CartItemDto toDto(CartItem item) {
-        if (item == null) {
-            throw new IllegalArgumentException("CartItem cannot be null");
-        }
+    @Mapping(target = "price", source = "product.price")
+    @Mapping(target = "code", source = "product.code")
+    CartItemDto toDto(CartItem cartItem);
 
-        return new CartItemDto(
-                item.getProduct().getCode(),
-                item.getProduct().getPrice());
-    }
 }

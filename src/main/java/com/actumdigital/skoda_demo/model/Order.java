@@ -1,6 +1,5 @@
 package com.actumdigital.skoda_demo.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,17 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
@@ -36,8 +32,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order",  cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JsonManagedReference
-    private List<OrderItem> items = new ArrayList<>();
+    private List<OrderItem> itemList = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -65,11 +60,19 @@ public class Order {
         this.user = user;
     }
 
-    public List<OrderItem> getItems() {
-        return items;
+    public List<OrderItem> getItemList() {
+        return itemList;
     }
 
-    public void setItems(List<OrderItem> items) {
-        this.items = items;
+    public void setItemList(List<OrderItem> items) {
+        this.itemList = items;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

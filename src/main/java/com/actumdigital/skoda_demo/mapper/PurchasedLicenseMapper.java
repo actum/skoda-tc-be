@@ -2,21 +2,14 @@ package com.actumdigital.skoda_demo.mapper;
 
 import com.actumdigital.skoda_demo.dto.PurchasedLicenseDto;
 import com.actumdigital.skoda_demo.model.PurchasedLicense;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class PurchasedLicenseMapper {
+@Mapper(componentModel = "spring")
+public interface PurchasedLicenseMapper {
 
-    public PurchasedLicenseDto toDto(PurchasedLicense purchasedLicense) {
-        if (purchasedLicense == null) {
-            throw new IllegalArgumentException("Purchased license cannot be null");
-        }
-
-        return new PurchasedLicenseDto(
-                purchasedLicense.getEndDate(),
-                purchasedLicense.getUser().getUsername(),
-                purchasedLicense.getProduct().getCode()
-        );
-    }
-
+    @Mapping(target = "email", source = "user.username")
+    @Mapping(target = "productCode", source = "product.code")
+    PurchasedLicenseDto toDto(PurchasedLicense purchasedLicense);
 }
