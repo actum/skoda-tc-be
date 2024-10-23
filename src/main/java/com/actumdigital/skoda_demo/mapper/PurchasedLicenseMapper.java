@@ -2,7 +2,9 @@ package com.actumdigital.skoda_demo.mapper;
 
 import com.actumdigital.skoda_demo.dto.PurchasedLicenseDto;
 import com.actumdigital.skoda_demo.model.PurchasedLicense;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PurchasedLicenseMapper {
 
     public PurchasedLicenseDto toDto(PurchasedLicense purchasedLicense) {
@@ -10,11 +12,10 @@ public class PurchasedLicenseMapper {
             throw new IllegalArgumentException("Purchased license cannot be null");
         }
 
-        // Map only Product fields, set licenceEndDate to null if PurchasedLicense is not present
         return new PurchasedLicenseDto(
                 purchasedLicense.getEndDate(),
-                null,
-                null
+                purchasedLicense.getUser().getUsername(),
+                purchasedLicense.getProduct().getCode()
         );
     }
 

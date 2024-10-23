@@ -17,8 +17,8 @@ public class PurchasedLicense {
     private PurchasedLicenseKey id;
 
     @ManyToOne
-    @MapsId("productCode")
-    @JoinColumn(name = "product_code")
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne

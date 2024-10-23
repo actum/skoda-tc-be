@@ -1,6 +1,6 @@
 services:
   postgres:
-    container_name: postgres
+    container_name: db
     image: postgres
     restart: always
     ports:
@@ -11,3 +11,12 @@ services:
       - POSTGRES_DB=skoda_demo
     volumes:
       - ./data:/var/lib/postgresql/data
+
+#  skoda-be:
+#    container_name: skoda-be
+#    image: ghcr.io/martinpechacek/skoda-demo:latest
+#    restart: always
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/skoda_demo?createDatabaseIfNotExist=true

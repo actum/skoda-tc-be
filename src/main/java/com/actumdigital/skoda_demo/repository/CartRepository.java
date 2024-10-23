@@ -1,13 +1,15 @@
 package com.actumdigital.skoda_demo.repository;
 
+import com.actumdigital.skoda_demo.model.Cart;
 import com.actumdigital.skoda_demo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByUsername(String username);
+public interface CartRepository extends JpaRepository<Cart, Long> {
+
+    Optional<Cart> findByUser(User user);
+
 }

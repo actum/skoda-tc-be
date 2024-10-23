@@ -10,10 +10,16 @@ spring:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   sql:
     init:
       mode: always
+  jakarta:
+    persistence:
+      jdbc:
+        url: org.postgresql.Driver
   datasource:
     password: Test123!
-    url: jdbc:postgresql://localhost:5432/skoda_demo?createDatabaseIfNotExist=true
+    url: jdbc:postgresql://127.0.0.1:5432/skoda_demo?createDatabaseIfNotExist=true
     username: skoda-demo
+    driver-class-name: org.postgresql.Driver

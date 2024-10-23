@@ -1,16 +1,22 @@
 package com.actumdigital.skoda_demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -32,14 +38,18 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String lastname;
 
-    @OneToMany(mappedBy = "user")
-    Set<PurchasedLicense> activeProducts;
+    @OneToMany(mappedBy = "user",
+            cascade = {CascadeType.MERGE, CascadeType.REMOVE},
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private List<Address> addresses;
 
-    // Default constructor
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Order> ordersList = new ArrayList<>();
+
     public User() {
     }
 
-    // Parameterized constructor
     public User(UUID id, String username, String password, String firstname, String lastname) {
         this.id = id;
         this.username = username;
@@ -79,5 +89,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public List<Order> getOrdersList() {
+        return ordersList;
     }
 }

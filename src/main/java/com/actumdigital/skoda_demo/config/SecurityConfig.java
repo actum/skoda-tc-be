@@ -1,6 +1,6 @@
 package com.actumdigital.skoda_demo.config;
 
-import com.actumdigital.skoda_demo.service.UserServiceImpl;
+import com.actumdigital.skoda_demo.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

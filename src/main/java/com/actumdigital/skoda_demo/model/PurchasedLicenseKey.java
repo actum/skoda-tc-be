@@ -12,12 +12,12 @@ public class PurchasedLicenseKey implements Serializable {
     @Column(name = "user_id")
     private UUID userId;
 
-    @Column(name = "product_code")
-    private String productCode;
+    @Column(name = "product_id")
+    private UUID productId;
 
-    public PurchasedLicenseKey(UUID userId, String productCode) {
+    public PurchasedLicenseKey(UUID userId, UUID productId) {
         this.userId = userId;
-        this.productCode = productCode;
+        this.productId = productId;
     }
 
     public PurchasedLicenseKey() { }
@@ -30,11 +30,11 @@ public class PurchasedLicenseKey implements Serializable {
         this.userId = userId;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public UUID getProductId() {
+        return productId;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setProductId(UUID productCode) {
+        this.productId = productCode;
     }
 }
