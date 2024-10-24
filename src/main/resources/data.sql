@@ -13,8 +13,8 @@ INSERT INTO credit_cards (id, number, expiry_month, expiry_year, cvv)
 SELECT
     '95cf9387-23e0-4845-8ffd-1e688b5087fe'::uuid,
     '4871049999999910',
-    3,
-    2030,
+    '03',
+    '2030',
     '737'
 WHERE NOT EXISTS (SELECT 1 FROM credit_cards);
 

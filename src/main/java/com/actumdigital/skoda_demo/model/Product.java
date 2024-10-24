@@ -53,8 +53,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(UUID id) {
+    public Product(UUID id, Double price) {
         this.id = id;
+        this.price = price;
     }
 
     public Product(UUID id, String code, String name, Double price, String description, ProductType productType, Category category) {

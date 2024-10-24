@@ -2,12 +2,16 @@ package com.actumdigital.skoda_demo.service;
 
 import com.actumdigital.skoda_demo.dto.OrderDto;
 import com.actumdigital.skoda_demo.dto.ProductDto;
-import com.actumdigital.skoda_demo.model.User;
+import com.actumdigital.skoda_demo.dto.UserDto;
+import com.actumdigital.skoda_demo.enums.FraudAssessment;
+import com.actumdigital.skoda_demo.enums.PaymentStatus;
 
 import java.util.List;
 
 public interface OrderService {
 
-    OrderDto createOrder(User user, List<ProductDto> productList);
+    OrderDto createOrder(UserDto userDto, List<ProductDto> productList);
+
+    OrderDto updateOrder(OrderDto orderDto);
 
 }

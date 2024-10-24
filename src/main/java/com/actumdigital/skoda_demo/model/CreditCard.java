@@ -26,13 +26,13 @@ public class CreditCard {
     private String number;
 
     @Column(nullable = false)
-    private Integer expiryMonth;
+    private String expiryMonth;
 
     @Column(nullable = false)
-    private Integer expiryYear;
+    private String expiryYear;
 
     @Column(nullable = false)
-    private Integer cvv;
+    private String cvv;
 
     @OneToOne(mappedBy = "creditCard")
     private User user;
@@ -40,7 +40,7 @@ public class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCard(UUID id, String number, Integer expiryMonth, Integer expiryYear, Integer cvv) {
+    public CreditCard(UUID id, String number, String expiryMonth, String expiryYear, String cvv) {
         this.id = id;
         this.number = number;
         this.expiryMonth = expiryMonth;
@@ -64,27 +64,27 @@ public class CreditCard {
         this.number = number;
     }
 
-    public Integer getExpiryMonth() {
+    public String getExpiryMonth() {
         return expiryMonth;
     }
 
-    public void setExpiryMonth(Integer expiryMonth) {
+    public void setExpiryMonth(String expiryMonth) {
         this.expiryMonth = expiryMonth;
     }
 
-    public Integer getExpiryYear() {
+    public String getExpiryYear() {
         return expiryYear;
     }
 
-    public void setExpiryYear(Integer expiryYear) {
+    public void setExpiryYear(String expiryYear) {
         this.expiryYear = expiryYear;
     }
 
-    public Integer getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(Integer cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 

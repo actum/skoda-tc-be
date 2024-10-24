@@ -8,5 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {AddressMapper.class, CreditCardMapper.class})
 public interface UserMapper {
 
+    @Mapping(target = "email", source = "username")
     UserDto toDto(User user);
 }

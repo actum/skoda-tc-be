@@ -52,6 +52,15 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public User(UUID id) {
+        this.id = id;
+    }
+
+    public User(UUID id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public User(UUID id, String username, String password, String firstname, String lastname) {
         this.id = id;
         this.username = username;

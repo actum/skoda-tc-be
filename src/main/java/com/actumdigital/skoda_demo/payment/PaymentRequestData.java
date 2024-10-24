@@ -7,8 +7,6 @@ public class PaymentRequestData {
     private Amount amount;
     private CardDetails cardDetails;
 
-    // Getters and setters
-
     public Amount getAmount() {
         return amount;
     }
