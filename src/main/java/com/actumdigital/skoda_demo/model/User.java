@@ -42,6 +42,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "credit_card_id", referencedColumnName = "id")
+    private CreditCard creditCard;
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Order> ordersList = new ArrayList<>();
 
@@ -107,5 +111,13 @@ public class User implements UserDetails {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 }

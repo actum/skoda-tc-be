@@ -13,6 +13,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.util.Set;
@@ -39,8 +40,8 @@ public class Product {
     @Column(length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "product")
-    private Set<PurchasedLicense> purchasedLicenses;
+    @OneToOne(mappedBy = "product")
+    private PurchasedLicense purchasedLicense;
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
@@ -94,10 +95,6 @@ public class Product {
         return description;
     }
 
-    public Set<PurchasedLicense> getPurchasedLicenses() {
-        return purchasedLicenses;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -112,5 +109,13 @@ public class Product {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public PurchasedLicense getPurchasedLicense() {
+        return purchasedLicense;
+    }
+
+    public void setPurchasedLicense(PurchasedLicense purchasedLicense) {
+        this.purchasedLicense = purchasedLicense;
     }
 }

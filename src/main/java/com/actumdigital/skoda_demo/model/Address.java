@@ -28,6 +28,9 @@ public class Address {
     private String street;
 
     @Column(nullable = false)
+    private Integer houseNumber;
+
+    @Column(nullable = false)
     private String city;
 
     @Column(nullable = false)
@@ -84,5 +87,13 @@ public class Address {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Integer getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(Integer houseNumber) {
+        this.houseNumber = houseNumber;
     }
 }

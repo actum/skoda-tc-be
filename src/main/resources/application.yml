@@ -25,3 +25,9 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/skoda_demo?createDatabaseIfNotExist=true
     username: skoda-demo
     driver-class-name: org.postgresql.Driver
+aws:
+  access-key-id: AKIA2FXAD47KJBCSJ3HA
+  secret-access-key: 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
+  region: us-east-1
+  fraud-detector:
+    detector-id: skoda_demo_fraud_detector

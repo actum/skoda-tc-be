@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class PurchasedLicense {
     @EmbeddedId
     private PurchasedLicenseKey id;
 
-    @ManyToOne
+    @OneToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
