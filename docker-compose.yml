@@ -1,0 +1,13 @@
+services:
+  postgres:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=skoda-demo
+      - POSTGRES_PASSWORD=Test123!
+      - POSTGRES_DB=skoda_demo
+    volumes:
+      - ./data:/var/lib/postgresql/data
