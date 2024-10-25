@@ -40,7 +40,7 @@ public class ProductFacade {
                 .toList();
     }
 
-    public ProductDto getUserProduct4(final String productCode, final User user) {
+    public ProductDto getUserProduct(final String productCode, final User user) {
         final ProductDto product = productService.getProduct(productCode);
         product.setPurchasedLicense(purchaseLicenseService.getPurchasedLicense(user, product));
         return product;
