@@ -4,7 +4,7 @@ import com.actumdigital.skoda_demo.dto.OrderDto;
 import com.actumdigital.skoda_demo.model.Order;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {OrderItemMapper.class})
+@Mapper(componentModel = "spring", uses = {OrderItemMapper.class, OrderAddressMapper.class, UserMapper.class})
 public interface OrderMapper {
 
     OrderDto toDto(Order order);

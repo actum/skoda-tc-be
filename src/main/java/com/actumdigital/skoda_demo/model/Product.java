@@ -12,10 +12,9 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -39,8 +38,8 @@ public class Product {
     @Column(length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "product")
-    private Set<PurchasedLicense> purchasedLicenses;
+    @OneToOne(mappedBy = "product")
+    private PurchasedLicense purchasedLicense;
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
@@ -52,8 +51,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(UUID id) {
+    public Product(UUID id, Double price) {
         this.id = id;
+        this.price = price;
     }
 
     public Product(UUID id, String code, String name, Double price, String description, ProductType productType, Category category) {
@@ -68,6 +68,10 @@ public class Product {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -94,23 +98,23 @@ public class Product {
         return description;
     }
 
-    public Set<PurchasedLicense> getPurchasedLicenses() {
-        return purchasedLicenses;
-    }
-
     public Category getCategory() {
         return category;
-    }
-
-    public ProductType getProductType() {
-        return productType;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public PurchasedLicense getPurchasedLicense() {
+        return purchasedLicense;
+    }
+
+    public void setPurchasedLicense(PurchasedLicense purchasedLicense) {
+        this.purchasedLicense = purchasedLicense;
     }
 }

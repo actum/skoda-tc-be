@@ -5,8 +5,9 @@ import com.actumdigital.skoda_demo.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, CreditCardMapper.class})
 public interface UserMapper {
 
+    @Mapping(target = "email", source = "username")
     UserDto toDto(User user);
 }

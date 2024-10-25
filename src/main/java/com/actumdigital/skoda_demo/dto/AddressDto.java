@@ -8,8 +8,11 @@ import java.util.UUID;
 public record AddressDto(
         UUID id,
         String street,
+        Integer houseNumber,
         String city,
         String postalCode,
+        String companyName,
+        String VAT,
         AddressType addressType,
         Country country) {
 }

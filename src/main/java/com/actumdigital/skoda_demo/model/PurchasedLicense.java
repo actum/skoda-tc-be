@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -13,20 +14,17 @@ import java.time.LocalDate;
 @Table(name = "purchased_licenses")
 public class PurchasedLicense {
 
+    LocalDate endDate;
     @EmbeddedId
     private PurchasedLicenseKey id;
-
-    @ManyToOne
+    @OneToOne
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
-
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
-
-    LocalDate endDate;
 
     public PurchasedLicense(PurchasedLicenseKey id, Product product, User user) {
         this.id = id;
@@ -34,7 +32,8 @@ public class PurchasedLicense {
         this.user = user;
     }
 
-    public PurchasedLicense() { }
+    public PurchasedLicense() {
+    }
 
     public PurchasedLicenseKey getId() {
         return id;

@@ -1,5 +1,18 @@
 spring:
   datasource:
     password: 87654321
-    url: jdbc:postgresql://awseb-e-7hq739aia3-stack-awsebrdsdatabase-ckyv28x74rvu.ctqag8iqkfhc.eu-north-1.rds.amazonaws.com:5432/skoda_demo?createDatabaseIfNotExist=true
+    url: jdbc:postgresql://skoda.ctqag8iqkfhc.eu-north-1.rds.amazonaws.com:5432/skoda_demo?createDatabaseIfNotExist=true
     username: sa
+aws:
+  access-key-id: AKIA2FXAD47KJBCSJ3HA
+  secret-access-key: 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
+  region: us-east-1
+  fraud-detector:
+    detector-id: skoda_demo_fraud_detector
+    entity-id: customer_123
+    entity-type-name: customer
+    event-type: order
+    score-name: skoda_demo_model_insightscore
+adyen:
+  api-key: AQEnhmfuXNWTK0Qc+iSRkXAtqsCST4JZDJ8QF8IRCM0PlM9ZemX6hSOuEMFdWw2+5HzctViMSCJMYAc=-VAlFZPB1isgJPs0xBd65NG4yZTPbdW7WR+r9H3pvI2Q=-i1iT<w]a7rML7@f<Pr%
+  merchant-account: ActumDigitalECOM

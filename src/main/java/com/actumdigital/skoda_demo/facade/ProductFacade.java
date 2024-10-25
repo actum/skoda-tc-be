@@ -7,6 +7,7 @@ import com.actumdigital.skoda_demo.service.ProductService;
 import com.actumdigital.skoda_demo.service.PurchaseLicenseService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,11 +23,11 @@ public class ProductFacade {
         this.purchaseLicenseService = purchaseLicenseService;
     }
 
-    public List<ProductDto> getAllProducts(User user) {
-        List<ProductDto> allProducts = productService.getAllProducts();
-        Set<PurchasedLicenseDto> purchasedLicences = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+    public List<ProductDto> getAllProducts(final User user) {
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
 
-        Map<String, PurchasedLicenseDto> licenseMap = purchasedLicences.stream()
+        final Map<String, PurchasedLicenseDto> licenseMap = purchasedLicenses.stream()
                 .collect(Collectors.toMap(PurchasedLicenseDto::productCode, license -> license));
 
         return allProducts.stream()
@@ -39,22 +40,36 @@ public class ProductFacade {
                 .toList();
     }
 
-    public ProductDto getUserProduct(String productCode, User user) {
-        ProductDto product = productService.getProduct(productCode);
+    public ProductDto getUserProduct4(final String productCode, final User user) {
+        final ProductDto product = productService.getProduct(productCode);
         product.setPurchasedLicense(purchaseLicenseService.getPurchasedLicense(user, product));
         return product;
     }
 
     public List<ProductDto> getInactiveProducts(User user) {
-        List<ProductDto> allProducts = productService.getAllProducts();
-        Set<PurchasedLicenseDto> purchasedLicences = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
 
-        Set<String> purchasedProductCodes = purchasedLicences.stream()
+        final Set<String> purchasedProductCodes = purchasedLicenses.stream()
                 .map(PurchasedLicenseDto::productCode)
                 .collect(Collectors.toSet());
 
         return allProducts.stream()
                 .filter(product -> !purchasedProductCodes.contains(product.getCode()))
+                .toList();
+    }
+
+    public List<ProductDto> getExpiredProducts(User user) {
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+
+        final Set<String> expiredProductCodes = purchasedLicenses.stream()
+                .filter(l -> l.endDate().isBefore(LocalDate.now()))
+                .map(PurchasedLicenseDto::productCode)
+                .collect(Collectors.toSet());
+
+        return allProducts.stream()
+                .filter(product -> expiredProductCodes.contains(product.getCode()))
                 .toList();
     }
 }

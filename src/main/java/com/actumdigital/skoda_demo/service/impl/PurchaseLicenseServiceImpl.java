@@ -2,7 +2,6 @@ package com.actumdigital.skoda_demo.service.impl;
 
 import com.actumdigital.skoda_demo.dto.ProductDto;
 import com.actumdigital.skoda_demo.dto.PurchasedLicenseDto;
-import com.actumdigital.skoda_demo.exception.PurchasedLicenseException;
 import com.actumdigital.skoda_demo.mapper.ProductMapper;
 import com.actumdigital.skoda_demo.mapper.PurchasedLicenseMapper;
 import com.actumdigital.skoda_demo.model.Product;
@@ -11,11 +10,12 @@ import com.actumdigital.skoda_demo.model.PurchasedLicenseKey;
 import com.actumdigital.skoda_demo.model.User;
 import com.actumdigital.skoda_demo.repository.PurchasedLicenseRepository;
 import com.actumdigital.skoda_demo.service.PurchaseLicenseService;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,10 +34,10 @@ public class PurchaseLicenseServiceImpl implements PurchaseLicenseService {
 
     @Override
     public PurchasedLicenseDto getPurchasedLicense(User user, ProductDto productDto) {
-        if(user == null || productDto == null) {
+        if (user == null || productDto == null) {
             throw new IllegalArgumentException("User or productDto cannot be null");
         }
-        return purchasedLicenseRepository.findByUserAndProduct(user, new Product(productDto.getId()))
+        return purchasedLicenseRepository.findByUserAndProduct(user, new Product(productDto.getId(), productDto.getPrice()))
                 .map(purchasedLicenseMapper::toDto)
                 .orElse(null);
     }
@@ -45,7 +45,7 @@ public class PurchaseLicenseServiceImpl implements PurchaseLicenseService {
 
     @Override
     public Set<PurchasedLicenseDto> getAllPurchasedLicensesByUser(User user) {
-        if(user == null) {
+        if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
         return purchasedLicenseRepository.findByUser(user).stream()
@@ -54,13 +54,30 @@ public class PurchaseLicenseServiceImpl implements PurchaseLicenseService {
     }
 
     @Override
-    public PurchasedLicenseDto createPurchasedLicense(User user, ProductDto productDto) {
-        PurchasedLicense purchasedLicense = new PurchasedLicense();
-        purchasedLicense.setId(new PurchasedLicenseKey(user.getId(), productDto.getId()));
-        purchasedLicense.setUser(user);
-        purchasedLicense.setProduct(new Product(productDto.getId()));
-        purchasedLicense.setEndDate(LocalDate.now().plusYears(1));
+    public PurchasedLicenseDto createPurchasedLicense(UUID userId, ProductDto productDto) {
+        User user = new User(userId);
 
-        return purchasedLicenseMapper.toDto(purchasedLicenseRepository.save(purchasedLicense));
+        Optional<PurchasedLicense> maybePurchasedLicense = purchasedLicenseRepository.findByUserAndProduct(user, new Product(productDto.getId(), productDto.getPrice()));
+
+        if (maybePurchasedLicense.isPresent()) {
+            PurchasedLicense purchasedLicense = maybePurchasedLicense.get();
+            LocalDate licenseEndDate = purchasedLicense.getEndDate();
+
+            if (licenseEndDate.isAfter(LocalDate.now())) {
+                purchasedLicense.setEndDate(purchasedLicense.getEndDate().plusYears(1));
+            } else {
+                purchasedLicense.setEndDate(LocalDate.now().plusYears(1));
+            }
+            return purchasedLicenseMapper.toDto(purchasedLicenseRepository.save(purchasedLicense));
+        } else {
+            PurchasedLicense purchasedLicense = new PurchasedLicense();
+
+            purchasedLicense.setId(new PurchasedLicenseKey(userId, productDto.getId()));
+            purchasedLicense.setUser(new User(userId));
+            purchasedLicense.setProduct(new Product(productDto.getId(), productDto.getPrice()));
+            purchasedLicense.setEndDate(LocalDate.now().plusYears(1));
+
+            return purchasedLicenseMapper.toDto(purchasedLicenseRepository.save(purchasedLicense));
+        }
     }
 }

@@ -1,11 +1,9 @@
 package com.actumdigital.skoda_demo.controller;
 
-import com.actumdigital.skoda_demo.dto.AddressDto;
+import com.actumdigital.skoda_demo.dto.CreditCardDto;
+import com.actumdigital.skoda_demo.dto.UserAddressDto;
 import com.actumdigital.skoda_demo.dto.UserDto;
 import com.actumdigital.skoda_demo.facade.UserFacade;
-import com.actumdigital.skoda_demo.model.User;
-import com.actumdigital.skoda_demo.service.UserService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,8 +31,12 @@ public class UsersController {
     }
 
     @PutMapping("/addresses/{addressId}")
-    public UserDto getCurrentUser(@PathVariable("addressId") UUID addressId, @RequestBody AddressDto addressDto) {
-        return userFacade.updateUserAddress(addressId, addressDto);
+    public UserDto updateAddress(@PathVariable("addressId") UUID addressId, @RequestBody UserAddressDto userAddressDto) {
+        return userFacade.updateUserAddress(addressId, userAddressDto);
+    }
 
+    @PutMapping("/creditcards/{cardId}")
+    public UserDto updateCreditCard(@PathVariable("cardId") UUID cardId, @RequestBody CreditCardDto cardDto) {
+        return userFacade.updateCreditCard(cardId, cardDto);
     }
 }

@@ -29,9 +29,12 @@ public class AddressServiceImpl implements AddressService {
         if(maybeAddress.isPresent()) {
             final Address address = maybeAddress.get();
             address.setStreet(addressDto.street());
+            address.setHouseNumber(addressDto.houseNumber());
             address.setCity(addressDto.city());
             address.setPostalCode(addressDto.postalCode());
             address.setAddressType(addressDto.addressType());
+            address.setCompanyName(addressDto.companyName());
+            address.setVAT(addressDto.VAT());
 
             return addressMapper.toDto(addressRepository.save(address));
         } else {

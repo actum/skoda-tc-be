@@ -37,4 +37,9 @@ public class ProductsController {
     public List<ProductDto> getInactive(@AuthenticationPrincipal User user) {
         return productFacade.getInactiveProducts(user);
     }
+
+    @GetMapping("/expired")
+    public List<ProductDto> getExpired(@AuthenticationPrincipal User user) {
+        return productFacade.getExpiredProducts(user);
+    }
 }
