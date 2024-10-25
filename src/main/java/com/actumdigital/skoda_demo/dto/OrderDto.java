@@ -17,7 +17,12 @@ public class OrderDto {
     private LocalDateTime createdAt;
     private UserDto user;
 
-    public OrderDto(Long id, List<OrderItemDto> itemList, Double totalPrice, OrderAddressDto billingAddress, PaymentStatus paymentStatus, FraudAssessment fraudAssessment, LocalDateTime createdAt, UserDto user) {
+    public OrderDto(Long id, List<OrderItemDto> itemList,
+                    Double totalPrice, OrderAddressDto billingAddress,
+                    PaymentStatus paymentStatus,
+                    FraudAssessment fraudAssessment,
+                    LocalDateTime createdAt,
+                    UserDto user) {
         this.id = id;
         this.itemList = itemList;
         this.totalPrice = totalPrice;

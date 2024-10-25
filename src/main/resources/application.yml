@@ -25,3 +25,6 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/skoda_demo?createDatabaseIfNotExist=true
     username: skoda-demo
     driver-class-name: org.postgresql.Driver
+adyen:
+  api-key: AQEnhdasdasmfuXNWTK0Qc+iSRkXAtqsCST4JZDJ8QF8IRCM0PlM9ZemX6hSOuEMFdWw2+5HzctViMSCJMYAc=-VAlFZPB1isgJPs0xBd65NG4yZTPbdW7WR+r9H3pvI2Q=-i1iT<w]a7rML7@f<Pr%
+  merchant-account: ActumDigitalECOMTEST

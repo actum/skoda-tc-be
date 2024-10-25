@@ -33,6 +33,8 @@ public class AddressServiceImpl implements AddressService {
             address.setCity(addressDto.city());
             address.setPostalCode(addressDto.postalCode());
             address.setAddressType(addressDto.addressType());
+            address.setCompanyName(addressDto.companyName());
+            address.setVAT(addressDto.VAT());
 
             return addressMapper.toDto(addressRepository.save(address));
         } else {

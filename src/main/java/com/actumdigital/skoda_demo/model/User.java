@@ -129,4 +129,16 @@ public class User implements UserDetails {
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 }

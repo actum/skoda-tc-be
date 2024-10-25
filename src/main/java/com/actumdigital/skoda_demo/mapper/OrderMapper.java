@@ -3,7 +3,6 @@ package com.actumdigital.skoda_demo.mapper;
 import com.actumdigital.skoda_demo.dto.OrderDto;
 import com.actumdigital.skoda_demo.model.Order;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {OrderItemMapper.class, OrderAddressMapper.class, UserMapper.class})
 public interface OrderMapper {

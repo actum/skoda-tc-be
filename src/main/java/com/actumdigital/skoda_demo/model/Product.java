@@ -12,11 +12,9 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -72,6 +70,10 @@ public class Product {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getCode() {
         return code;
     }
@@ -100,16 +102,12 @@ public class Product {
         return category;
     }
 
-    public ProductType getProductType() {
-        return productType;
-    }
-
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public ProductType getProductType() {
+        return productType;
     }
 
     public PurchasedLicense getPurchasedLicense() {

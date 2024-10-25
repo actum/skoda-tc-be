@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -34,5 +37,21 @@ public class UserServiceImpl implements UserService {
         User currentUser = userRepository.findById(principal.getId())
                 .orElseThrow(() -> UserException.NOT_FOUND);
         return userMapper.toDto(currentUser);
+    }
+
+    public UserDto updateUser(UUID id, UserDto userDto) {
+        Optional<User> maybeUser = userRepository.findById(id);
+
+        if (maybeUser.isPresent()) {
+            final User user = maybeUser.get();
+
+            user.setFirstname(userDto.firstname());
+            user.setLastname(userDto.lastname());
+            user.setPhoneNumber(userDto.phoneNumber());
+
+            return userMapper.toDto(userRepository.save(user));
+        } else {
+            throw UserException.NOT_FOUND;
+        }
     }
 }

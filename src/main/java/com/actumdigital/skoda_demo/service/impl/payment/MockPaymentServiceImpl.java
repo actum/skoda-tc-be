@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Service
-@Profile("default")
+//@Profile("default")
 public class MockPaymentServiceImpl implements PaymentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MockPaymentServiceImpl.class);

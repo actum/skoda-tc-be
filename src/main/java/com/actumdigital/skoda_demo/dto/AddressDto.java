@@ -11,6 +11,8 @@ public record AddressDto(
         Integer houseNumber,
         String city,
         String postalCode,
+        String companyName,
+        String VAT,
         AddressType addressType,
         Country country) {
 }

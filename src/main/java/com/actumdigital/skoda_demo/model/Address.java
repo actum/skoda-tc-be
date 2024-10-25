@@ -11,8 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -39,6 +37,9 @@ public class Address {
     @Column(nullable = false)
     private String postalCode;
 
+    private String companyName;
+    private String VAT;
+
     @OneToOne(mappedBy = "address")
     private User user;
 
@@ -56,28 +57,28 @@ public class Address {
         return street;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public AddressType getAddressType() {
-        return addressType;
-    }
-
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public void setCity(String city) {
         this.city = city;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public AddressType getAddressType() {
+        return addressType;
     }
 
     public void setAddressType(AddressType addressType) {
@@ -98,5 +99,21 @@ public class Address {
 
     public void setHouseNumber(Integer houseNumber) {
         this.houseNumber = houseNumber;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getVAT() {
+        return VAT;
+    }
+
+    public void setVAT(String VAT) {
+        this.VAT = VAT;
     }
 }

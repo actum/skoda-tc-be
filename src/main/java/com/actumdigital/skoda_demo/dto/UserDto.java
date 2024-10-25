@@ -1,7 +1,5 @@
 package com.actumdigital.skoda_demo.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.UUID;
 
 

@@ -1,7 +1,6 @@
 package com.actumdigital.skoda_demo.service.impl;
 
 import com.actumdigital.skoda_demo.dto.CreditCardDto;
-import com.actumdigital.skoda_demo.exception.AddressException;
 import com.actumdigital.skoda_demo.exception.CreditCardException;
 import com.actumdigital.skoda_demo.mapper.CreditCardMapper;
 import com.actumdigital.skoda_demo.model.CreditCard;

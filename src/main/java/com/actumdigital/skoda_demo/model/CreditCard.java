@@ -1,11 +1,7 @@
 package com.actumdigital.skoda_demo.model;
 
-import com.actumdigital.skoda_demo.enums.AddressType;
-import com.actumdigital.skoda_demo.enums.Country;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

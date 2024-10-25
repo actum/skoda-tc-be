@@ -1,7 +1,7 @@
 package com.actumdigital.skoda_demo.controller;
 
-import com.actumdigital.skoda_demo.dto.AddressDto;
 import com.actumdigital.skoda_demo.dto.CreditCardDto;
+import com.actumdigital.skoda_demo.dto.UserAddressDto;
 import com.actumdigital.skoda_demo.dto.UserDto;
 import com.actumdigital.skoda_demo.facade.UserFacade;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +31,8 @@ public class UsersController {
     }
 
     @PutMapping("/addresses/{addressId}")
-    public UserDto updateAddress(@PathVariable("addressId") UUID addressId, @RequestBody AddressDto addressDto) {
-        return userFacade.updateUserAddress(addressId, addressDto);
+    public UserDto updateAddress(@PathVariable("addressId") UUID addressId, @RequestBody UserAddressDto userAddressDto) {
+        return userFacade.updateUserAddress(addressId, userAddressDto);
     }
 
     @PutMapping("/creditcards/{cardId}")
