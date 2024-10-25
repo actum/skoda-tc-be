@@ -23,6 +23,7 @@ import java.util.Optional;
 import static java.time.format.DateTimeFormatter.ISO_INSTANT;
 
 @Service
+// Temporarily inactive due to blocked account by AWS. Addressed to AWS support
 @Profile("cloud")
 public class FraudDetectorServiceImpl implements FraudDetectorService {
 

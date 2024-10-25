@@ -10,6 +10,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.frauddetector.FraudDetectorClient;
 
 @Configuration
+// Temporarily inactive due to blocked account by AWS. Addressed to AWS support
 @Profile("cloud")
 public class AwsConfig {
 

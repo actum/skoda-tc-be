@@ -20,7 +20,8 @@ public class PurchasedLicenseKey implements Serializable {
         this.productId = productId;
     }
 
-    public PurchasedLicenseKey() { }
+    public PurchasedLicenseKey() {
+    }
 
     public UUID getUserId() {
         return userId;

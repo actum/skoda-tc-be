@@ -23,11 +23,11 @@ public class ProductFacade {
         this.purchaseLicenseService = purchaseLicenseService;
     }
 
-    public List<ProductDto> getAllProducts(User user) {
-        List<ProductDto> allProducts = productService.getAllProducts();
-        Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+    public List<ProductDto> getAllProducts(final User user) {
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
 
-        Map<String, PurchasedLicenseDto> licenseMap = purchasedLicenses.stream()
+        final Map<String, PurchasedLicenseDto> licenseMap = purchasedLicenses.stream()
                 .collect(Collectors.toMap(PurchasedLicenseDto::productCode, license -> license));
 
         return allProducts.stream()
@@ -40,17 +40,17 @@ public class ProductFacade {
                 .toList();
     }
 
-    public ProductDto getUserProduct(String productCode, User user) {
-        ProductDto product = productService.getProduct(productCode);
+    public ProductDto getUserProduct4(final String productCode, final User user) {
+        final ProductDto product = productService.getProduct(productCode);
         product.setPurchasedLicense(purchaseLicenseService.getPurchasedLicense(user, product));
         return product;
     }
 
     public List<ProductDto> getInactiveProducts(User user) {
-        List<ProductDto> allProducts = productService.getAllProducts();
-        Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
 
-        Set<String> purchasedProductCodes = purchasedLicenses.stream()
+        final Set<String> purchasedProductCodes = purchasedLicenses.stream()
                 .map(PurchasedLicenseDto::productCode)
                 .collect(Collectors.toSet());
 
@@ -60,10 +60,10 @@ public class ProductFacade {
     }
 
     public List<ProductDto> getExpiredProducts(User user) {
-        List<ProductDto> allProducts = productService.getAllProducts();
-        Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        final Set<PurchasedLicenseDto> purchasedLicenses = purchaseLicenseService.getAllPurchasedLicensesByUser(user);
 
-        Set<String> expiredProductCodes = purchasedLicenses.stream()
+        final Set<String> expiredProductCodes = purchasedLicenses.stream()
                 .filter(l -> l.endDate().isBefore(LocalDate.now()))
                 .map(PurchasedLicenseDto::productCode)
                 .collect(Collectors.toSet());

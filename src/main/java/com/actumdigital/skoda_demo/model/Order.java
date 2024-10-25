@@ -26,30 +26,23 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
 
+    @Enumerated(EnumType.STRING)
+    PaymentStatus paymentStatus;
+    @Enumerated(EnumType.STRING)
+    FraudAssessment fraudAssessment;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     @Column(nullable = false)
     private Double totalPrice;
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @OneToMany(mappedBy = "order",  cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> itemList = new ArrayList<>();
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "billing_address", referencedColumnName = "id")
     private OrderAddress billingAddress;
-
-    @Enumerated(EnumType.STRING)
-    PaymentStatus paymentStatus;
-
-    @Enumerated(EnumType.STRING)
-    FraudAssessment fraudAssessment;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 

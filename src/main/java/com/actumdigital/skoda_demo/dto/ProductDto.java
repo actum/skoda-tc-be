@@ -14,10 +14,16 @@ public class ProductDto {
     private Double price;
     private PurchasedLicenseDto purchasedLicense;
     private String categoryName;
-    private ProductType productType;
+    private final ProductType productType;
 
 
-    public ProductDto(UUID id, String code, String name, String description, Double price, ProductType productType, String categoryName) {
+    public ProductDto(UUID id,
+                      String code,
+                      String name,
+                      String description,
+                      Double price,
+                      ProductType productType,
+                      String categoryName) {
         this.id = id;
         this.code = code;
         this.name = name;
